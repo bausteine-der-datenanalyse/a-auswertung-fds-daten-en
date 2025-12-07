@@ -1,0 +1,10 @@
+project:  
+  output-dir: output/book/
+book:
+  chapters: 
+    - index.qmd
+    - skript/introduction.qmd
+    - skript/aset.qmd
+    - skript/fdsreader.qmd    
+    - uebungen/uebung.qmd
+    - klausurfragen/klausurfragen.qmd

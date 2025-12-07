@@ -1,0 +1,50 @@
+# Preamble {.unnumbered}
+
+:::: {.border #Lizenz}
+
+::: {layout="[20, 80]" layout-valign="center"}
+![](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by.png) 
+
+Bausteine Computergestützter Datenanalyse von Lukas Arnold, 
+Simone Arnold, Florian Bagemihl, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch und 
+Sebastian Seipel. "Anwendungsbaustein Auswertung von fds-Daten" von Marc Fehr ist lizensiert unter [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.de). Das Werk ist abrufbar unter <https://github.com/bausteine-der-datenanalyse/a-auswertung_fds_daten>. 
+Ausgenommen von der Lizenz sind alle Logos und anders gekennzeichneten Inhalte. 2025
+
+:::
+
+Zitiervorschlag
+
+Arnold, Lukas, Simone Arnold, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch, und 
+Sebastian Seipel. 2025. „Bausteine Computergestützter Datenanalyse. 
+Anwendungsbaustein Auswertung von fds-Daten“. <https://github.com/bausteine-der-datenanalyse/a-auswertung-fds-daten>.
+
+BibTeX-Vorlage
+
+```
+@misc{BCD-fds-daten-2025,
+ title={Bausteine Computergestützter Datenanalyse. Anwendungsbaustein Auswertung von fds-Daten},
+ author={Arnold, Lukas and Arnold, Simone and Baitsch, Matthias and Fehr, Marc and Hollmann, Franca and Poetzsch, Maik and Seipel, Sebastian},
+ year={2025},
+ url={https://github.com/bausteine-der-datenanalyse/a-auswertung-fds-daten}} 
+```
+
+::::
+
+
+# Intro
+
+## Voraussetzungen
+{{< include voraussetzungen.md >}}
+
+## Verwendete Pakete und Datensätze
+- NumPy
+- pandas
+- matplotlib
+- fdsreader
+
+## Bearbeitungszeit
+Geschätzte Bearbeitungszeit: 4h
+
+## Lernziele
+
+{{< include lernziele.md >}}
