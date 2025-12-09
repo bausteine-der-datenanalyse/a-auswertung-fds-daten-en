@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Anwendungsbaustein Auswertung von fds-Daten - 2&nbsp; Verfügbare sichere Evakuierungszeit (ASET)</title>
+<title>Anwendungsbaustein Auswertung von fds-Daten - 2&nbsp; Available safe egress time</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../skript/aset.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Verfügbare sichere Evakuierungszeit (ASET)</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../skript/aset.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Available safe egress time</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -153,13 +153,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../skript/introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einführung in ASET</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction ASET</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../skript/aset.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Verfügbare sichere Evakuierungszeit (ASET)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Available safe egress time</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -190,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#rauchsichtbarkeitsschicht" id="toc-rauchsichtbarkeitsschicht" class="nav-link active" data-scroll-target="#rauchsichtbarkeitsschicht"><span class="header-section-number">2.1</span> Rauchsichtbarkeitsschicht</a></li>
+  <li><a href="#smoke-layer" id="toc-smoke-layer" class="nav-link active" data-scroll-target="#smoke-layer"><span class="header-section-number">2.1</span> Smoke layer</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/bausteine-der-datenanalyse/a-auswertung-fds-daten/blob/main/skript/aset.qmd" class="toc-action"><i class="bi bi-github"></i>Quellcode anzeigen</a></li></ul></div></nav>
     </div>
@@ -199,7 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Verfügbare sichere Evakuierungszeit (ASET)</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Available safe egress time</span></h1>
 </div>
 
 
@@ -216,16 +216,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="ed0ac10a" class="cell" data-execution_count="1">
+<div id="ea5313fe" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fdsreader</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Dieses Beispiel demonstriert eine Analyse von Slice-Daten, um die Karte der <strong>verfügbaren sicheren Evakuierungszeit (ASET)</strong> sowie die zeitliche Entwicklung der Rauchsichtbarkeitsschicht zu bestimmen. Das verwendete Szenario ist eine Mehrraumwohnung.</p>
-<div id="0af7d815" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pfad_zur_simulation <span class="op">=</span> <span class="st">'../skript/01-data/apartment_01'</span></span>
+<p>This example demonstrates an analysis of slice data, here to determine the map of available safe egress time (ASET) and the temporal evolution of the smoke layer height. The used scenario is a multi-room appartment.</p>
+<div id="f53d1b77" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path_to_data <span class="op">=</span> <span class="st">'../skript/01-data/apartment_01'</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> fdsreader.Simulation(pfad_zur_simulation)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> fdsreader.Simulation(path_to_data)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sim)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simulation(chid=Appartment,
@@ -235,32 +235,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
            data_3d=5,
            smoke_3d=3)</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/opt/hostedtoolcache/Python/3.12.12/x64/lib/python3.12/site-packages/numpy/lib/_npyio_impl.py:1048: UserWarning: no explicit representation of timezones available for np.datetime64
-  arr = _load_from_filelike(</code></pre>
 </div>
+<div id="cbe88946" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the soot density slice, normal to z at 1.5m height</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>slc <span class="op">=</span> sim.slices.get_by_id(<span class="st">'SootDensityZ_1.5m'</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># as the simulation is based on multiple meshes, a global </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data structure is created, walls are represented as</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># non-valid data points, i.e. nan</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>slc_data <span class="op">=</span> slc.to_global(masked<span class="op">=</span><span class="va">True</span>, fill<span class="op">=</span>np.nan)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="863ac77a" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rußdichte-Slice laden, senkrecht zur z-Achse in 1,5 m Höhe</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>slc <span class="op">=</span> sim.slices.get_by_id(<span class="st">'SootDensityZ_1.5m'</span>)</span>
+<p>First, a visualisation of the data at a selected point is done with the <code>imshow</code> function.</p>
+<div id="9737af85" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find the time index</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> slc.get_nearest_timestep(<span class="dv">50</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Da die Simulation auf mehreren Gittern basiert, wird eine globale Datenstruktur erstellt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Wände werden als ungültige Datenpunkte (NaN) dargestellt</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>slc_data <span class="op">=</span> slc.to_global(masked<span class="op">=</span><span class="va">True</span>, fill<span class="op">=</span>np.nan)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Zuerst wird eine Visualisierung der Daten zu einem ausgewählten Zeitpunkt mit der Funktion <code>imshow</code> durchgeführt.</p>
-<div id="ab9d8801" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeitindex ermitteln</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> slc.get_nearest_timestep(<span class="dv">50</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten visualisieren</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.imshow(slc_data[it,:,:].T, origin<span class="op">=</span><span class="st">'lower'</span>, extent<span class="op">=</span>slc.extent.as_list())</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Achsenbeschriftung und Farbleiste</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Rußdichte bei t=</span><span class="sc">{</span>slc<span class="sc">.</span>times[it]<span class="sc">:.2f}</span><span class="ss">s'</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Position / m'</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Position / m'</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.colorbar(orientation<span class="op">=</span><span class="st">'horizontal'</span>, label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>unit<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># visualise the data</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.imshow(slc_data[it,:,:].T, origin<span class="op">=</span><span class="st">'lower'</span>, extent<span class="op">=</span>slc.extent.as_list())</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># add labels</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Soot Density at t=</span><span class="sc">{</span>slc<span class="sc">.</span>times[it]<span class="sc">:.2f}</span><span class="ss">s'</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'position / m'</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'position / m'</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.colorbar(orientation<span class="op">=</span><span class="st">'horizontal'</span>, label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>unit<span class="sc">}</span><span class="ss">'</span> )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -269,50 +266,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Nun werden die lokalen ASET-Werte berechnet:</p>
+<p>Now, the local ASET values are computed:</p>
 <ol type="1">
-<li>Über alle räumlichen Elemente der Slice-Daten iterieren<br>
-</li>
-<li>Alle Zeitpunkte bestimmen, an denen der Begehbarkeits-Grenzwert überschritten wird<br>
-</li>
-<li>Falls dies der Fall ist, den ersten Zeitpunkt als lokalen ASET-Wert setzen</li>
+<li>Iterate over all spatial elements of the slice</li>
+<li>Determine all points in time which exceed the tenability threshold</li>
+<li>f this happens at any time, set the first time to be the local ASET value</li>
 </ol>
-<div id="b44600c9" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beliebiger Grenzwert für die Begehbarkeit</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>grenzwert_rußdichte <span class="op">=</span> <span class="fl">1e-4</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Karte mit maximaler ASET als Standardwert erstellen</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>aset_karte <span class="op">=</span> np.full_like(slc_data[<span class="dv">0</span>], slc.times[<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Wände auf NaN setzen</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>aset_karte[np.isnan(slc_data[<span class="dv">0</span>,:,:])] <span class="op">=</span> np.nan</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1D-Schleife über alle Array-Indizes, ix ist ein zweidimensionaler Index</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ix <span class="kw">in</span> np.ndindex(aset_karte.shape):</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Lokale Werte, die den Grenzwert überschreiten, ermitteln</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    lokaler_aset <span class="op">=</span> np.where(slc_data[:, ix[<span class="dv">0</span>], ix[<span class="dv">1</span>]] <span class="op">&gt;</span> grenzwert_rußdichte)[<span class="dv">0</span>]</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Falls vorhanden, ersten Zeitpunkt als ASET-Wert verwenden</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(lokaler_aset) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        aset_karte[ix] <span class="op">=</span> slc.times[lokaler_aset[<span class="dv">0</span>]]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="852e2240" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set arbitrary values as tenability threshold</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>soot_density_limit <span class="op">=</span> <span class="fl">1e-4</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a map with max ASET as default value</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>aset_map <span class="op">=</span> np.full_like(slc_data[<span class="dv">0</span>], slc.times[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set walls to nan</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>aset_map[np.isnan(slc_data[<span class="dv">0</span>,:,:])] <span class="op">=</span> np.nan</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1D loop over all array indices, ix is a two dimensional index</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ix <span class="kw">in</span> np.ndindex(aset_map.shape):</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># find spatialy local values which exceed the given limit </span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    local_aset <span class="op">=</span> np.where(slc_data[:, ix[<span class="dv">0</span>], ix[<span class="dv">1</span>]] <span class="op">&gt;</span> soot_density_limit)[<span class="dv">0</span>]</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if any value exists</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(local_aset) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># use the first, i.e. first in time, as the local ASET value</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        aset_map[ix] <span class="op">=</span> slc.times[local_aset[<span class="dv">0</span>]]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Mit der berechneten Karte kann nun eine grafische Darstellung erzeugt werden, ähnlich wie bei anderen Größen – hier mit diskreter Farbskala.</p>
-<div id="0a341f00" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Diskrete (12 Werte) Farbskala erstellen</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> plt.cm.get_cmap(<span class="st">'jet_r'</span>, <span class="dv">12</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung der ASET-Karte</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.imshow(aset_karte.T, origin<span class="op">=</span><span class="st">'lower'</span>, extent<span class="op">=</span>slc.extent.as_list(), cmap<span class="op">=</span>cmap)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'ASET-Karte mit Grenzwert der Rußdichte </span><span class="sc">{</span>grenzwert_ru<span class="sc">ß</span>dichte<span class="sc">:.1e}</span><span class="ss">'</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x-Position / m'</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y-Position / m'</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.colorbar(orientation<span class="op">=</span><span class="st">'horizontal'</span>, label<span class="op">=</span><span class="st">'Zeit / s'</span>)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausgabe in Datei speichern (optional)</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig('figs/appartment_aset_map.svg', bbox_inches='tight')</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>With the computed map, a graphical respresentation of the ASET map is done the same way as with the other quantities. Here, a discrete color map is used.</p>
+<div id="139ea095" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a discrete (12 values) color map</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cmap = matplotlib.cm.get_cmap('jet_r', 12)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> plt.cm.get_cmap(<span class="st">'jet_r'</span>, <span class="dv">12</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># visualise the data</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>plt.imshow(aset_map.T, origin<span class="op">=</span><span class="st">'lower'</span>, extent<span class="op">=</span>slc.extent.as_list(), cmap<span class="op">=</span>cmap)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'ASET Map with Soot Density Limit of </span><span class="sc">{</span>soot_density_limit<span class="sc">:.1e}</span><span class="ss">'</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x position / m'</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y position / m'</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>plt.colorbar(orientation<span class="op">=</span><span class="st">'horizontal'</span>, label<span class="op">=</span><span class="st">'time / s'</span> )<span class="op">;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># save output to file</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.savefig('figs/appartment_aset_map.svg', bbox_inches='tight')</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3287/2604837150.py:2: MatplotlibDeprecationWarning: The get_cmap function was deprecated in Matplotlib 3.7 and will be removed in 3.11. Use ``matplotlib.colormaps[name]`` or ``matplotlib.colormaps.get_cmap()`` or ``pyplot.get_cmap()`` instead.
+<pre><code>/tmp/ipykernel_3407/3953631812.py:3: MatplotlibDeprecationWarning: The get_cmap function was deprecated in Matplotlib 3.7 and will be removed in 3.11. Use ``matplotlib.colormaps[name]`` or ``matplotlib.colormaps.get_cmap()`` or ``pyplot.get_cmap()`` instead.
   cmap = plt.cm.get_cmap('jet_r', 12)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -323,30 +322,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="rauchsichtbarkeitsschicht" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="rauchsichtbarkeitsschicht"><span class="header-section-number">2.1</span> Rauchsichtbarkeitsschicht</h2>
-<p>In diesem Beispiel wird die Höhe der Rauchsichtbarkeitsschicht analysiert. Die Unterscheidung erfolgt hier anhand eines einfachen Temperatur-Grenzwerts: Die lokale Schichthöhe ergibt sich aus dem niedrigsten Punkt, an dem eine bestimmte Temperatur überschritten wird. Die Auswertung erfolgt auf einem Slice entlang des Brenners (normal zur x-Achse).</p>
-<div id="37e8fcb4" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Slice finden</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>slc <span class="op">=</span> sim.slices.get_by_id(<span class="st">'BurnerTempX'</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># In globale Datenstruktur umwandeln und Koordinaten extrahieren</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>slc_data, slc_coords <span class="op">=</span> slc.to_global(masked<span class="op">=</span><span class="va">True</span>, fill<span class="op">=</span>np.nan, return_coordinates<span class="op">=</span><span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="smoke-layer" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="smoke-layer"><span class="header-section-number">2.1</span> Smoke layer</h2>
+<p>In this example, the smoke layer height is analysed. The distinction made here is based on a simple threshold in temperature: The local smoke layer height is given by the lowest point above a given temperature. The evaluation is done based on a slice across the burner and normal to the x-direction.</p>
+<div id="2dbf862a" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find the slice</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>slc <span class="op">=</span> sim.slices.get_by_id(<span class="st">'BurnerTempX'</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># convert it to a global data structure and get the coordinates</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>slc_data, slc_coords <span class="op">=</span> slc.to_global(masked<span class="op">=</span><span class="va">True</span>, fill<span class="op">=</span>np.nan, return_coordinates<span class="op">=</span><span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Zunächst erfolgt eine Visualisierung der Daten zu einem beliebigen Zeitpunkt. Weiße Bereiche stellen Hindernisse dar.</p>
-<div id="1178a6ce" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zeitpunkt wählen</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> slc.get_nearest_timestep(<span class="dv">150</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten visualisieren</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>plt.imshow(slc_data[it,:,:].T, origin<span class="op">=</span><span class="st">'lower'</span>, vmax<span class="op">=</span><span class="dv">200</span>, extent<span class="op">=</span>slc.extent.as_list())</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Temperatur bei t=</span><span class="sc">{</span>slc<span class="sc">.</span>times[it]<span class="sc">:.2f}</span><span class="ss">s'</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'y-Position / m'</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'z-Position / m'</span>)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plt.colorbar(orientation<span class="op">=</span><span class="st">'horizontal'</span>, label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>unit<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig('figs/appartment_temp_slice.svg', bbox_inches='tight')</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>First, the data at a arbitrary point in time is visualsied. The white parts represent the obsticles.</p>
+<div id="78108196" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pick a time index</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> slc.get_nearest_timestep(<span class="dv">150</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># visualise the data</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>plt.imshow(slc_data[it,:,:].T, origin<span class="op">=</span><span class="st">'lower'</span>, vmax<span class="op">=</span><span class="dv">200</span>, extent<span class="op">=</span>slc.extent.as_list())</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Temperature at t=</span><span class="sc">{</span>slc<span class="sc">.</span>times[it]<span class="sc">:.2f}</span><span class="ss">s'</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'y position / m'</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'z position / m'</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>plt.colorbar(orientation<span class="op">=</span><span class="st">'horizontal'</span>, label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>unit<span class="sc">}</span><span class="ss">'</span> )</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># save output to file</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.savefig('figs/appartment_temp_slice.svg', bbox_inches='tight')</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -355,35 +356,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Nun wird für jede y-Position der z-Index gesucht, an dem die Temperatur den Grenzwert überschreitet. Der niedrigste dieser Punkte ist die lokale Höhe der Rauchsichtbarkeitsschicht.</p>
-<div id="13f32a2c" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grenzwert für Temperatur</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>temperatur_grenzwert <span class="op">=</span> <span class="dv">75</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Array zur Speicherung der lokalen Höhenwerte; Standard ist maximale z-Koordinate</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>schicht_hoehe <span class="op">=</span> np.full(slc_data.shape[<span class="dv">1</span>], slc_coords[<span class="st">'z'</span>][<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Schleife über y-Indizes</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ix <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(schicht_hoehe)):</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Indizes finden die den Grenzwert überschreiten</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    lt <span class="op">=</span> np.where(slc_data[it, ix, :] <span class="op">&gt;</span> temperatur_grenzwert)[<span class="dv">0</span>]</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Wenn welche existieren, wähle den niedrigsten von ihnen</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(lt) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        schicht_hoehe[ix] <span class="op">=</span> slc_coords[<span class="st">'z'</span>][lt[<span class="dv">0</span>]]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, for each y-position the z-indices are found, where the temperature exceedes the limit temperature. The lowest value is the smoke layer height at the y-position.</p>
+<div id="a2e4784c" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set temperature limit</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>temperature_limit <span class="op">=</span> <span class="dv">75</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a data array to store the local height values, default </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># is the maximal z-coordinate</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>layer_height <span class="op">=</span> np.full(slc_data.shape[<span class="dv">1</span>], slc_coords[<span class="st">'z'</span>][<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># loop over all indices</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ix <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(layer_height)):</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># find indices which exceed the limit</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    lt <span class="op">=</span> np.where(slc_data[it, ix, :] <span class="op">&gt;</span> temperature_limit)[<span class="dv">0</span>]</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if there are any, pick the lowest one</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(lt) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        layer_height[ix] <span class="op">=</span> slc_coords[<span class="st">'z'</span>][lt[<span class="dv">0</span>]]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Die resultierenden Werte können nun über dem Slice dargestellt werden, um die Plausibilität zu überprüfen.</p>
-<div id="96a52c53" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Slice Daten</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(slc_data[it,:,:].T, origin<span class="op">=</span><span class="st">'lower'</span>, vmax<span class="op">=</span><span class="dv">200</span>, extent<span class="op">=</span>slc.extent.as_list())</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Temperatur bei t=</span><span class="sc">{</span>slc<span class="sc">.</span>times[it]<span class="sc">:.2f}</span><span class="ss">s'</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'y-Position / m'</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'z-Position / m'</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>plt.colorbar(orientation<span class="op">=</span><span class="st">'horizontal'</span>, label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>unit<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Rauchsichtbarkeitsschichthöhe</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plt.plot(slc_coords[<span class="st">'y'</span>], schicht_hoehe, <span class="st">'.-'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig('figs/appartment_temp_slice_height.svg', bbox_inches='tight')</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The resulting values can now be plotted over the slice file, to check for plausibility.</p>
+<div id="0ebed380" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># slice data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(slc_data[it,:,:].T, origin<span class="op">=</span><span class="st">'lower'</span>, vmax<span class="op">=</span><span class="dv">200</span>, extent<span class="op">=</span>slc.extent.as_list())</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Temperature at t=</span><span class="sc">{</span>slc<span class="sc">.</span>times[it]<span class="sc">:.2f}</span><span class="ss">s'</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'y position / m'</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'z position / m'</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>plt.colorbar(orientation<span class="op">=</span><span class="st">'horizontal'</span>, label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>unit<span class="sc">}</span><span class="ss">'</span> )<span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># smoke layer height</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>plt.plot(slc_coords[<span class="st">'y'</span>], layer_height, <span class="st">'.-'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># save output to file</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.savefig('figs/appartment_temp_slice_height.svg', bbox_inches='tight')</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -392,35 +397,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Die obige Methode kann auch über alle Zeitpunkte angewendet werden, um z. B. Mittelwert und Standardabweichung der Schichthöhe zu berechnen.</p>
-<div id="dc1c6d16" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mittelwert <span class="op">=</span> np.zeros_like(slc.times)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>standardabweichung <span class="op">=</span> np.zeros_like(slc.times)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> np.zeros(slc_data.shape[<span class="dv">1</span>])</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> it <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(slc.times)):</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    res[:] <span class="op">=</span> slc_coords[<span class="st">'z'</span>][<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ix <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(res)):</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        lt <span class="op">=</span> np.where(slc_data[it, ix, :] <span class="op">&gt;</span> temperatur_grenzwert)[<span class="dv">0</span>]</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(lt) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>            res[ix] <span class="op">=</span> slc_coords[<span class="st">'z'</span>][lt[<span class="dv">0</span>]]</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    mittelwert[it] <span class="op">=</span> np.mean(res)</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    standardabweichung[it] <span class="op">=</span> np.std(res)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Using the above approach for a single point in time, a loop over all times can be used to compute, e.g., the mean and standard deviation of the smoke layer height.</p>
+<div id="ad35245d" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>layer_mean <span class="op">=</span> np.zeros_like(slc.times)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>layer_stddev <span class="op">=</span> np.zeros_like(slc.times)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> np.zeros(slc_data.shape[<span class="dv">1</span>])</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> it <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(slc.times)):</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    res[:] <span class="op">=</span> slc_coords[<span class="st">'z'</span>][<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ix <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(res)):</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        lt <span class="op">=</span> np.where(slc_data[it, ix, :] <span class="op">&gt;</span> temperature_limit)[<span class="dv">0</span>]</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(lt) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>            res[ix] <span class="op">=</span> slc_coords[<span class="st">'z'</span>][lt[<span class="dv">0</span>]]</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    layer_mean[it] <span class="op">=</span> np.mean(res)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    layer_stddev[it] <span class="op">=</span> np.std(res)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="906ecb6b" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Darstellung des Mittelwerts und der Standartabweichung als Funktion der Zeit</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.plot(slc.times, mittelwert, label<span class="op">=</span><span class="st">'Mittlere Schichthöhe'</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.plot(slc.times, standardabweichung, label<span class="op">=</span><span class="st">'Standardabweichung'</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Zeit / s'</span>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Höhe / m'</span>)</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Ergebnisse in Datei abspeichern</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig('figs/appartment_layer_mean_stddev.svg', bbox_inches='tight')</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="30158941" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the mean and stddev values as functions of time</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot(slc.times, layer_mean, label<span class="op">=</span><span class="st">'Mean Smoke Layer Height'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.plot(slc.times, layer_stddev, label<span class="op">=</span><span class="st">'Stddev of Smoke Layer Height'</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time / s'</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Height / m'</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># save output to file</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.savefig('figs/appartment_layer_mean_stddev.svg', bbox_inches='tight')</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>Text(0, 0.5, 'Höhe / m')</code></pre>
+<pre><code>Text(0, 0.5, 'Height / m')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -430,25 +440,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Beide Werte können kombiniert visualisiert werden. Die Standardabweichung ergibt ein Band um den Mittelwert.</p>
-<div id="c2136e8c" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mittelwert darstellen</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.plot(slc.times, mittelwert, label<span class="op">=</span><span class="st">'Mittlere Schichthöhe'</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Band um den Mittelwert darstellen mit Hilfe der Standartabweichung</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>plt.fill_between(slc.times, mittelwert<span class="op">-</span>standardabweichung, mittelwert<span class="op">+</span>standardabweichung, color<span class="op">=</span><span class="st">'C0'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Boden als Referenz zeigen</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>plt.ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Zeit / s'</span>)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Höhe / m'</span>)</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig('figs/appartment_layer_mean_band.svg', bbox_inches='tight')</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Both values can be combined and visualised jointly, where the standard deviation is used to indicate a fluctuation band around the mean value.</p>
+<div id="46addef8" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the mean</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.plot(slc.times, layer_mean, label<span class="op">=</span><span class="st">'Mean Smoke Layer Height'</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot a band around the mean, using the stddev as band borders</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plt.fill_between(slc.times, layer_mean<span class="op">-</span>layer_stddev, layer_mean<span class="op">+</span>layer_stddev, color<span class="op">=</span><span class="st">'C0'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># show the floor for reference</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>plt.ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time / s'</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Height / m'</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># save output to file</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.savefig('figs/appartment_layer_mean_band.svg', bbox_inches='tight')</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>Text(0, 0.5, 'Höhe / m')</code></pre>
+<pre><code>Text(0, 0.5, 'Height / m')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -458,25 +470,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Wenn bestimmte Bereiche ausgeschlossen werden sollen, kann eine koordinatenabhängige Maske verwendet werden.</p>
-<div id="4fc5dcc0" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Finde Indizes bei denen die y-Koordinate zwischen den angegebenen Werten liegt</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ymin <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>ymax <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>koordinaten_maske <span class="op">=</span> np.where((slc_coords[<span class="st">'y'</span>] <span class="op">&gt;</span> ymin) <span class="op">&amp;</span> (slc_coords[<span class="st">'y'</span>] <span class="op">&lt;</span> ymax))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If parts of the region shall be excluded in the analysis, a coordinate dependent mask can be used for this.</p>
+<div id="f65afa6b" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find indices, where the y coordinate is between the given values</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ymin <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ymax <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>coord_mask <span class="op">=</span> np.where((slc_coords[<span class="st">'y'</span>] <span class="op">&gt;</span> ymin) <span class="op">&amp;</span> (slc_coords[<span class="st">'y'</span>] <span class="op">&lt;</span> ymax))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e66eca75" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Slice Daten</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(slc_data[it,:,:].T, origin<span class="op">=</span><span class="st">'lower'</span>, vmax<span class="op">=</span><span class="dv">200</span>, extent<span class="op">=</span>slc.extent.as_list())</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Temperatur bei t=</span><span class="sc">{</span>slc<span class="sc">.</span>times[it]<span class="sc">:.2f}</span><span class="ss">s'</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'y-Position / m'</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'z-Position / m'</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.colorbar(orientation<span class="op">=</span><span class="st">'horizontal'</span>, label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>unit<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Rauchsichtbarkeitsschichthöhe</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.plot(slc_coords[<span class="st">'y'</span>][koordinaten_maske], schicht_hoehe[koordinaten_maske], <span class="st">'.-'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig('figs/appartment_temp_slice_height_mask.svg', bbox_inches='tight')</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2a0b681c" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># slice data</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(slc_data[it,:,:].T, origin<span class="op">=</span><span class="st">'lower'</span>, vmax<span class="op">=</span><span class="dv">200</span>, extent<span class="op">=</span>slc.extent.as_list())</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Temperature at t=</span><span class="sc">{</span>slc<span class="sc">.</span>times[it]<span class="sc">:.2f}</span><span class="ss">s'</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'y position / m'</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'z position / m'</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.colorbar(orientation<span class="op">=</span><span class="st">'horizontal'</span>, label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>slc<span class="sc">.</span>quantity<span class="sc">.</span>unit<span class="sc">}</span><span class="ss">'</span> )<span class="op">;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># smoke layer height</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.plot(slc_coords[<span class="st">'y'</span>][coord_mask], layer_height[coord_mask], <span class="st">'.-'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># save output to file</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.savefig('figs/appartment_temp_slice_height_mask.svg', bbox_inches='tight')</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -485,32 +500,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Das gleiche Verfahren kann erneut verwendet werden, wobei Mittelwert und Standardabweichung nur auf die maskierten Werte berechnet werden.</p>
-<div id="746f34e3" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> it <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(slc.times)):</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    res[:] <span class="op">=</span> slc_coords[<span class="st">'z'</span>][<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ix <span class="kw">in</span> np.ndindex(res.shape):</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        lt <span class="op">=</span> np.where(slc_data[it, ix, :] <span class="op">&gt;</span> temperatur_grenzwert)[<span class="dv">1</span>]</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(lt) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>            res[ix] <span class="op">=</span> slc_coords[<span class="st">'z'</span>][lt[<span class="dv">0</span>]]</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Berechnungen werden nun mit den Werten aus der Maske durchgeführt</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    mittelwert[it] <span class="op">=</span> np.mean(res[koordinaten_maske])</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    standardabweichung[it] <span class="op">=</span> np.std(res[koordinaten_maske])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The above procedure can be reused, yet the computation of the mean and standard deviation is carried out on the masked values.</p>
+<div id="6092b028" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> it <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(slc.times)):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    res[:] <span class="op">=</span> slc_coords[<span class="st">'z'</span>][<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ix <span class="kw">in</span> np.ndindex(res.shape):</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        lt <span class="op">=</span> np.where(slc_data[it, ix, :] <span class="op">&gt;</span> temperature_limit)[<span class="dv">1</span>]</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(lt) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>            res[ix] <span class="op">=</span> slc_coords[<span class="st">'z'</span>][lt[<span class="dv">0</span>]]</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># computation is carried out on the masked values now</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    layer_mean[it] <span class="op">=</span> np.mean(res[coord_mask])</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    layer_stddev[it] <span class="op">=</span> np.std(res[coord_mask])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="36b6ddb0" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbe Darstellung wie zuvor</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>plt.plot(slc.times, mittelwert, label<span class="op">=</span><span class="st">'Mittlere Schichthöhe'</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plt.fill_between(slc.times, mittelwert<span class="op">-</span>standardabweichung, mittelwert<span class="op">+</span>standardabweichung, color<span class="op">=</span><span class="st">'C0'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>plt.ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Zeit / s'</span>)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Höhe / m'</span>)</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig('figs/appartment_layer_mean_band_mask.svg', bbox_inches='tight')</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c3326a14" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># same plot as above</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>plt.plot(slc.times, layer_mean, label<span class="op">=</span><span class="st">'Mean Smoke Layer Height'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>plt.fill_between(slc.times, layer_mean<span class="op">-</span>layer_stddev, layer_mean<span class="op">+</span>layer_stddev, color<span class="op">=</span><span class="st">'C0'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>plt.ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time / s'</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Height / m'</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># save output to file</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.savefig('figs/appartment_layer_mean_band_mask.svg', bbox_inches='tight')</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.close()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
-<pre><code>Text(0, 0.5, 'Höhe / m')</code></pre>
+<pre><code>Text(0, 0.5, 'Height / m')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -936,8 +956,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../skript/introduction.html" class="pagination-link" aria-label="Einführung in ASET">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Einführung in ASET</span></span>
+      <a href="../skript/introduction.html" class="pagination-link" aria-label="Introduction ASET">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction ASET</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
