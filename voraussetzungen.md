@@ -1,6 +1,6 @@
-- Grundlagen Python
-- Einbinden von zusätzlichen Paketen
-- Arbeiten mit NumPy
-- Arbeiten mit Pandas
-- Plotten mit Matplotlib
-- Grundkentnisse im Simulieren von Bränden
+- Basic knowledge of python
+- Importing packages
+- NumPy basics
+- Pandas basics
+- Plotting with matplotlib
+- Basic knowledge in simulating fires
