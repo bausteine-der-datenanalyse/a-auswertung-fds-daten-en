@@ -14,7 +14,7 @@
     "href": "index.html#voraussetzungen",
     "title": "Anwendungsbaustein Auswertung von fds-Daten",
     "section": "Voraussetzungen",
-    "text": "Voraussetzungen\n\nGrundlagen Python\nEinbinden von zusätzlichen Paketen\nArbeiten mit NumPy\nArbeiten mit Pandas\nPlotten mit Matplotlib\nGrundkentnisse im Simulieren von Bränden",
+    "text": "Voraussetzungen\n\nBasic knowledge of python\nImporting packages\nNumPy basics\nPandas basics\nPlotting with matplotlib\nBasic knowledge in simulating fires",
     "crumbs": [
       "Preamble"
     ]
@@ -44,7 +44,7 @@
     "href": "index.html#lernziele",
     "title": "Anwendungsbaustein Auswertung von fds-Daten",
     "section": "Lernziele",
-    "text": "Lernziele\n\nEinlesen von fds Daten mit dem fdsreader\nAnalyse der Daten in Bezug auf ASET",
+    "text": "Lernziele\n\nReading in data using the fdsreader\nAnalyzing the data to perform an ASET analysis",
     "crumbs": [
       "Preamble"
     ]
