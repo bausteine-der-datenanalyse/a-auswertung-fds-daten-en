@@ -2,51 +2,51 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Anwendungsbaustein Auswertung von fds-Daten",
+    "title": "Bausteine Computergestützter Datenanalyse",
     "section": "",
-    "text": "Preamble",
+    "text": "Anwendungsbaustein Auswertung von fds-Daten",
     "crumbs": [
-      "Preamble"
+      "Anwendungsbaustein Auswertung von fds-Daten"
     ]
   },
   {
     "objectID": "index.html#voraussetzungen",
     "href": "index.html#voraussetzungen",
-    "title": "Anwendungsbaustein Auswertung von fds-Daten",
+    "title": "Bausteine Computergestützter Datenanalyse",
     "section": "Voraussetzungen",
     "text": "Voraussetzungen\n\nBasic knowledge of python\nImporting packages\nNumPy basics\nPandas basics\nPlotting with matplotlib\nBasic knowledge in simulating fires",
     "crumbs": [
-      "Preamble"
+      "Anwendungsbaustein Auswertung von fds-Daten"
     ]
   },
   {
     "objectID": "index.html#verwendete-pakete-und-datensätze",
     "href": "index.html#verwendete-pakete-und-datensätze",
-    "title": "Anwendungsbaustein Auswertung von fds-Daten",
+    "title": "Bausteine Computergestützter Datenanalyse",
     "section": "Verwendete Pakete und Datensätze",
     "text": "Verwendete Pakete und Datensätze\n\nNumPy\npandas\nmatplotlib\nfdsreader",
     "crumbs": [
-      "Preamble"
+      "Anwendungsbaustein Auswertung von fds-Daten"
     ]
   },
   {
     "objectID": "index.html#bearbeitungszeit",
     "href": "index.html#bearbeitungszeit",
-    "title": "Anwendungsbaustein Auswertung von fds-Daten",
+    "title": "Bausteine Computergestützter Datenanalyse",
     "section": "Bearbeitungszeit",
     "text": "Bearbeitungszeit\nGeschätzte Bearbeitungszeit: 4h",
     "crumbs": [
-      "Preamble"
+      "Anwendungsbaustein Auswertung von fds-Daten"
     ]
   },
   {
     "objectID": "index.html#lernziele",
     "href": "index.html#lernziele",
-    "title": "Anwendungsbaustein Auswertung von fds-Daten",
+    "title": "Bausteine Computergestützter Datenanalyse",
     "section": "Lernziele",
     "text": "Lernziele\n\nReading in data using the fdsreader\nAnalyzing the data to perform an ASET analysis",
     "crumbs": [
-      "Preamble"
+      "Anwendungsbaustein Auswertung von fds-Daten"
     ]
   },
   {
