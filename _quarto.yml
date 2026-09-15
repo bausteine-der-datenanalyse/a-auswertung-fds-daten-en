@@ -13,7 +13,7 @@ book:
     - Maik Poetzsch
     - Sebastian Seipel
   date: today
-  language: de-DE
+  language: en-US
   downloads: [pdf]
   repo-url: "https://github.com/bausteine-der-datenanalyse/a-auswertung-fds-daten"
   repo-actions: [source]
@@ -23,11 +23,11 @@ bibliography: skript/references.bib
 format:
   html:
     theme: [cosmo, theme.scss]
-    lang: de
+    lang: en
     tbl-cap-location: bottom
   pdf:
     documentclass: scrreprt
-    lang: de
+    lang: en
     toc-depth: 1
 
 execute:
