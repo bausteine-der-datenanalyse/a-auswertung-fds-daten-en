@@ -1,4 +1,4 @@
-# Introduction ASET
+# Introduction to ASET
 
 ASET (Available Safe Egress Time) is a critical concept in fire safety 
 engineering that represents the time available for occupants to safely evacuate 
@@ -9,7 +9,7 @@ Ensuring that the ASET exceeds the Required Safe Egress Time (RSET) is
 essential for developing effective evacuation plans and enhancing the safety of 
 building occupants during an emergency.
 
-## Data acquisation
+## Data acquisition
 
 The data we will look at were generated using the Fire Dynamics Simulator (FDS). 
 FDS (Fire Dynamics Simulator) is a computational fluid dynamics model used to 
@@ -17,6 +17,6 @@ simulate fire-driven fluid flow, allowing for the analysis and prediction of
 fire behavior and its impact on buildings and environments. 
 
 ::: {.callout-warning}
-This building block wont go any further into simulations and fds. The resulting 
+This building block won't go any further into simulations and fds. The resulting 
 simulation data used in this block will be provided as a download.
 :::
