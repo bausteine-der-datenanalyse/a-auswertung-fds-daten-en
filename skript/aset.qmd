@@ -77,7 +77,7 @@ same way as with the other quantities. Here, a discrete color map is used.
 ```{python}
 # create a discrete (12 values) color map
 # cmap = matplotlib.cm.get_cmap('jet_r', 12)
-cmap = plt.cm.get_cmap('jet_r', 12)
+cmap = plt.colormaps['jet_r'].resampled(12)
 
 # visualise the data
 plt.imshow(aset_map.T, origin='lower', extent=slc.extent.as_list(), cmap=cmap)
