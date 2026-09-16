@@ -15,7 +15,7 @@ book:
   date: today
   language: en-US
   downloads: [pdf]
-  repo-url: "https://github.com/bausteine-der-datenanalyse/a-auswertung-fds-daten"
+  repo-url: "https://github.com/bausteine-der-datenanalyse/a-auswertung-fds-daten-en"
   repo-actions: [source]
 
 bibliography: skript/references.bib
@@ -37,6 +37,3 @@ profile:
   default: full
   group: 
     - [full, klausur]
-
-
-
