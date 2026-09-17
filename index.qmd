@@ -8,7 +8,7 @@
 Building Blocks of Computer-Assisted Data Analysis by Lukas Arnold,
 Simone Arnold, Florian Bagemihl, Matthias Baitsch, Marc Fehr, Franca Hollmann, Maik Poetzsch, and
 Sebastian Seipel. "Application Module: Evaluation of FDS Data" by Marc Fehr is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en). The work is available at <https://github.com/bausteine-der-datenanalyse/a-auswertung-fds-daten-en>.
-Excluded from the license are all logos and other specially marked content. 2025
+Excluded from the license are all logos and other specially marked content. 2026
 
 :::
 
